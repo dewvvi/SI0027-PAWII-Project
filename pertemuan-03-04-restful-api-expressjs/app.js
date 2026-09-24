@@ -18,6 +18,7 @@ let mahasiswa = [
 ];
 
 // TODO 1: GET /mahasiswa -> kirim seluruh data sebagai JSON
+// APP GET UTK AKSES/DAPAT DATA
 app.get("/mahasiswa", (req, res) => {
   // lengkapi di sini
   res.json(mahasiswa);
@@ -36,6 +37,7 @@ app.get("/mahasiswa", (req, res) => {
 // // TODO 3: POST /mahasiswa -> ambil { nama, jurusan } dari req.body,
 // // buat objek baru dengan id = mahasiswa.length + 1, simpan ke array,
 // // kirim response dengan status 201
+// APP POST UTK KIRIM DATA
 // app.post("/mahasiswa", (req, res) => {
 //   // lengkapi di sini
 //   const {nama, jurusan} = req.body;
@@ -82,38 +84,29 @@ app.get("/mahasiswa", (req, res) => {
 //   res.status(204).send;
 // });
 
-app.listen(PORT, () => {
-  console.log(`Server berjalan di http://localhost:${PORT}`);
-});
+
 
 //Latihan 1 : buat fungsi utk mengambil data mhs aktif, dengan alamat mahasiswa/aktif
-
-// TODO 2: GET /mahasiswa/:id -> cari data berdasarkan id,
-// kirim 404 dengan { message: 'Data tidak ditemukan' } jika tidak ada
 app.get("/mahasiswa/aktif", (req, res) => {
   // lengkapi di sini
-  const data = mahasiswa.find ((m) => m.status === "Aktif");
-  if (!status) return res.status(404).json({message: 'Data tidak ditemukan'});
-  res.json(data);
+ const data = mahasiswa.filter((m) => m.status === "Aktif");
+if (data.length === 0) {
+    return res.status(404).json({ message: "Data tidak ditemukan" });
+  }
 });
 
 app.get("/mahasiswa/:id", (req, res) => {
+// req.params.id bertipe string, konversi ke integer
+  const id = parseInt(req.params.id);
+  const data = mahasiswa.find((m) => m.id === id);
 
+  if (!data) {
+    return res.status(404).json({ message: "Mahasiswa tidak ditemukan" });
+  }
+
+  res.json(data);
 });
 
-// TODO 3: POST /mahasiswa -> ambil { nama, jurusan } dari req.body,
-// buat objek baru dengan id = mahasiswa.length + 1, simpan ke array,
-// kirim response dengan status 201
-// app.post("/mahasiswa", (req, res) => {
-//   // lengkapi di sini
-//   const {nama, jurusan} = req.body;
-
-//   const baru = {
-//     id : mahasiswa.length + 1,
-//     nama,
-//     jurusan
-//   };
-
-//   mahasiswa.push(baru);
-//   res.status(201).json(baru);
-// });
+app.listen(PORT, () => {
+  console.log(`Server berjalan di http://localhost:${PORT}`);
+});
