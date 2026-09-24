@@ -1,6 +1,6 @@
 // Mini Project - Pertemuan 3-4: RESTful API CRUD dengan Express.js
 // Entitas: mahasiswa (id, nama, jurusan)
-//
+
 // TODO Mahasiswa: lengkapi setiap handler di bawah ini sesuai komentar.
 // Jalankan dengan: npm install && npm start
 
@@ -13,8 +13,8 @@ app.use(express.json());
 let mahasiswa = [
   { id: 1, nama: "Andi", jurusan: "Sistem Informasi", status : "Aktif" },
   { id: 2, nama: "Budi", jurusan: "Informatika", status : "Tidak aktif" },
-  { id: 1, nama: "Nina", jurusan: "Sistem Informasi", status : "Aktif" },
-  { id: 2, nama: "Lala", jurusan: "Informatika", status : "Tidak aktif" }
+  { id: 3, nama: "Nina", jurusan: "Sistem Informasi", status : "Aktif" },
+  { id: 4, nama: "Lala", jurusan: "Informatika", status : "Tidak aktif" }
 ];
 
 // TODO 1: GET /mahasiswa -> kirim seluruh data sebagai JSON
@@ -86,15 +86,13 @@ app.get("/mahasiswa", (req, res) => {
 
 
 
-//Latihan 1 : buat fungsi utk mengambil data mhs aktif, dengan alamat mahasiswa/aktif
+// 2. GET /mahasiswa/aktif -> Tampilkan KHUSUS mahasiswa yang statusnya "Aktif"
 app.get("/mahasiswa/aktif", (req, res) => {
-  // lengkapi di sini
- const data = mahasiswa.filter((m) => m.status === "Aktif");
-if (data.length === 0) {
-    return res.status(404).json({ message: "Data tidak ditemukan" });
-  }
+const mahasiswaAktif = mahasiswa.filter((m) => m.status === "Aktif");
+  res.json(mahasiswaAktif);
 });
 
+// 3. GET /mahasiswa/:id -> Tampilkan mahasiswa berdasarkan ID
 app.get("/mahasiswa/:id", (req, res) => {
 // req.params.id bertipe string, konversi ke integer
   const id = parseInt(req.params.id);
@@ -103,10 +101,10 @@ app.get("/mahasiswa/:id", (req, res) => {
   if (!data) {
     return res.status(404).json({ message: "Mahasiswa tidak ditemukan" });
   }
-
   res.json(data);
 });
 
+// Jalankan server
 app.listen(PORT, () => {
   console.log(`Server berjalan di http://localhost:${PORT}`);
 });
