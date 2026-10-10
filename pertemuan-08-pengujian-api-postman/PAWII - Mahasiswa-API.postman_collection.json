@@ -1,0 +1,111 @@
+{
+  "info": {
+    "_postman_id": "59bb2456-519f-4a52-ac61-5c20b4fc8215",
+    "name": "PAWII - Mahasiswa API (Starter)",
+    "description": "Mini Project Pertemuan 8: lengkapi setiap tab Tests (// TODO) pada request di bawah ini.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58804449",
+    "_collection_link": "https://go.postman.co/collection/58804449-59bb2456-519f-4a52-ac61-5c20b4fc8215?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET All Mahasiswa",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// TODO 1: tambahkan pm.test yang memeriksa status code 200\npm.test('Status code adalah 200', function () {\n  pm.response.to.have.status(200);\n});\n\n// TODO 2: tambahkan pm.test yang memastikan response berupa array\n// gunakan pm.response.json() dan pm.expect(...).to.be.an('array')\npm.test('Response berupa array', function () {\n  const jsonData = pm.response.json();\n  pm.expect(jsonData).to.be.an('array');\n});\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/mahasiswa",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "mahasiswa"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Tambah Mahasiswa",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// TODO 3: tambahkan pm.test yang memeriksa status code 201\npm.test('Status code adalah 201', function () {\n  pm.response.to.have.status(201);\n});\n\n// TODO 4: simpan id dari response ke environment variable\n// 'mahasiswaId' menggunakan pm.environment.set(), agar dapat\n// dipakai oleh request 'GET Satu Mahasiswa' di bawah ini\nconst jsonData = pm.response.json();\npm.environment.set('mahasiswaId', jsonData.id);\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nama\": \"Citra\",\n  \"jurusan\": \"Sistem Informasi\"\n}",
+          "options": {
+            "raw": {
+              "language": "text"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/mahasiswa",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "mahasiswa"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Satu Mahasiswa",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// TODO 5: tambahkan pm.test yang memeriksa status code 200\npm.test('Status code adalah 200', function () {\n  pm.response.to.have.status(200);\n});\n\n// TODO 6: tambahkan pm.test yang memastikan data memiliki\n// properti 'nama'\npm.test('Data mahasiswa pertama bernama', function () {\n  const jsonData = pm.response.json();\n  pm.expect(jsonData[0].nama).to.have.property('nama');\n});\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/mahasiswa/{{mahasiswaId}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "mahasiswa",
+            "{{mahasiswaId}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

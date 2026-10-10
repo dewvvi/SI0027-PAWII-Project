@@ -1,0 +1,9 @@
+# Use this workspace to collaborate
+workspace:
+  id: ""
+
+localResources:
+  collections:
+    - ../pertemuan-08-pengujian-api-postman/PAWII-Mahasiswa-API.postman_collection.json
+  environments:
+    - ../pertemuan-08-pengujian-api-postman/development.postman_environment.json
