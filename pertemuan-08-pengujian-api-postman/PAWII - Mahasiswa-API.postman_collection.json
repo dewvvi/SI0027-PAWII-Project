@@ -86,7 +86,7 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "// TODO 5: tambahkan pm.test yang memeriksa status code 200\npm.test('Status code adalah 200', function () {\n  pm.response.to.have.status(200);\n});\n\n// TODO 6: tambahkan pm.test yang memastikan data memiliki\n// properti 'nama'\npm.test('Data mahasiswa pertama bernama', function () {\n  const jsonData = pm.response.json();\n  pm.expect(jsonData[0].nama).to.have.property('nama');\n});\n"
+              "// TODO 5: tambahkan pm.test yang memeriksa status code 200\npm.test('Status code adalah 200', function () {\n  pm.response.to.have.status(200);\n});\n\n// TODO 6: tambahkan pm.test yang memastikan data memiliki\n// properti 'nama'\npm.test('Data mahasiswa memiliki nama', function () {\n  const jsonData = pm.response.json();\n  pm.expect(jsonData).to.have.property('nama');\n});\n"
             ]
           }
         }

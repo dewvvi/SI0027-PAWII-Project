@@ -1,0 +1,8 @@
+name: development
+values:
+  - key: base_url
+    value: ''
+  - key: mahasiswa
+    value: ''
+  - key: mahasiswaId
+    value: ''

@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{base_url}}/mahasiswa/3"
+method: GET
+scripts:
+  - type: afterResponse
+    code: |
+      // TODO 5: tambahkan pm.test yang memeriksa status code 200
+      pm.test('Status code adalah 200', function () {
+        pm.response.to.have.status(200);
+      });
+
+      // TODO 6: tambahkan pm.test yang memastikan data memiliki
+      // properti 'nama'
+      pm.test('Data mahasiswa memiliki nama', function () {
+        const jsonData = pm.response.json();
+        pm.expect(jsonData).to.have.property('nama');
+      });
+    language: text/javascript
+order: 3000

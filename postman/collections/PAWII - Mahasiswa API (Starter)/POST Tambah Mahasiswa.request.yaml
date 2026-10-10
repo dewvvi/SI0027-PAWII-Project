@@ -1,0 +1,28 @@
+$kind: http-request
+url: "{{base_url}}/mahasiswa"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "nama": "Mina",
+      "jurusan": "Informatika",
+      "status": "Tidak aktif"
+    }
+scripts:
+  - type: afterResponse
+    code: |
+      // TODO 3: tambahkan pm.test yang memeriksa status code 201
+      pm.test('Status code adalah 201', function () {
+        pm.response.to.have.status(201);
+      });
+
+      // TODO 4: simpan id dari response ke environment variable
+      // 'mahasiswaId' menggunakan pm.environment.set(), agar dapat
+      // dipakai oleh request 'GET Satu Mahasiswa' di bawah ini
+      const jsonData = pm.response.json();
+      pm.environment.set('mahasiswaId', jsonData.id);
+    language: text/javascript
+order: 2000

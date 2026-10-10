@@ -1,9 +1,17 @@
 # Use this workspace to collaborate
 workspace:
-  id: ""
+  id: feb1e7eb-02c6-4155-822c-8ec9e1ed2caa
 
 localResources:
   collections:
     - ../pertemuan-08-pengujian-api-postman/PAWII-Mahasiswa-API.postman_collection.json
+    - ../pertemuan-08-pengujian-api-postman/PAWII -
+      Mahasiswa-API.postman_collection.json
   environments:
     - ../pertemuan-08-pengujian-api-postman/development.postman_environment.json
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ../postman/collections/PAWII - Mahasiswa API (Starter): bb5fec20-2c3d-4f31-8d28-fc44c7d5caa4
