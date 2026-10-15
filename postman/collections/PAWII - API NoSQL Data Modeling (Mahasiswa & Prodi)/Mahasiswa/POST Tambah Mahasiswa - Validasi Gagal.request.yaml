@@ -1,0 +1,18 @@
+$kind: http-request
+url: "{{base_url}}/mahasiswa"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "jurusan": "tanpa nama dan nim"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status code 400', () => pm.response.to.have.status(400));
+      pm.test('Response memiliki pesan error', () => pm.expect(pm.response.json()).to.have.property('message'));
+    language: text/javascript
+order: 2000

@@ -1,0 +1,24 @@
+$kind: http-request
+url: "{{base_url}}/prodi"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "nama": "Sistem Informasi"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status code 201', () => pm.response.to.have.status(201));
+      const body = pm.response.json();
+      pm.test('Response memiliki _id dan nama yang sesuai', () => {
+        pm.expect(body).to.have.property('_id');
+        pm.expect(body.nama).to.eql('Sistem Informasi');
+      });
+      pm.test('Jenjang default adalah S1', () => pm.expect(body.jenjang).to.eql('S1'));
+      pm.environment.set('prodiId', body._id);
+    language: text/javascript
+order: 1000

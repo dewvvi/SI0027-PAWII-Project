@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{base_url}}/mahasiswa/{{mahasiswaId}}"
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status code 200', () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+      pm.test('_id sesuai', () => pm.expect(body._id).to.eql(pm.environment.get('mahasiswaId')));
+      pm.test('prodiId ter-populate menjadi objek', () => {
+        pm.expect(body.prodiId).to.be.an('object');
+        pm.expect(body.prodiId.nama).to.eql('Sistem Informasi');
+      });
+    language: text/javascript
+order: 5000

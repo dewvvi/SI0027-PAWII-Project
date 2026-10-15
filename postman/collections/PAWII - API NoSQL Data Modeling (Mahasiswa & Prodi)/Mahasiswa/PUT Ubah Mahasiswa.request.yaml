@@ -1,0 +1,20 @@
+$kind: http-request
+url: "{{base_url}}/mahasiswa/{{mahasiswaId}}"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "nama": "Citra Updated"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status code 200', () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+      pm.test('Nama berhasil diubah', () => pm.expect(body.nama).to.eql('Citra Updated'));
+      pm.test('_id tidak berubah', () => pm.expect(body._id).to.eql(pm.environment.get('mahasiswaId')));
+    language: text/javascript
+order: 7000

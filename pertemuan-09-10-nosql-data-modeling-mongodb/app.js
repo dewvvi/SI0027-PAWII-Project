@@ -2,6 +2,9 @@
 // TODO 4: lengkapi koneksi Mongoose dan pemasangan route di bawah ini.
 // Jalankan dengan: npm install && npm start (setelah menyalin .env.example menjadi .env)
 
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '1.1.1.1']);
+
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");

@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{base_url}}/prodi"
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status code 200', () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+      pm.test('Response berupa array', () => pm.expect(body).to.be.an('array'));
+      pm.test('Berisi prodi yang baru dibuat', () => {
+        pm.expect(body.map(p => p._id)).to.include(pm.environment.get('prodiId'));
+      });
+    language: text/javascript
+order: 3000

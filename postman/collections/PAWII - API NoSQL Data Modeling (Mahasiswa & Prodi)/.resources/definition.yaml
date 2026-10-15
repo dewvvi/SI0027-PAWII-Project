@@ -1,0 +1,2 @@
+$kind: collection
+description: "Pengujian otomatis Pertemuan 9-10. Jalankan berurutan: Prodi -> Mahasiswa. Perintah: newman run PAWII-NoSQL-API.postman_collection.json -e PAWII-NoSQL-API.postman_environment.json"

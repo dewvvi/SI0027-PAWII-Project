@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{base_url}}/mahasiswa"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "nama": "Duplikat",
+      "nim": "{{nim}}"
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test('Status code 400 untuk NIM duplikat', () => pm.response.to.have.status(400));
+    language: text/javascript
+order: 3000

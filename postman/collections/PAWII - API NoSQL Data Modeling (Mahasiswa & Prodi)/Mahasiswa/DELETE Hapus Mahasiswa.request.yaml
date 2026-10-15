@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{base_url}}/mahasiswa/{{mahasiswaId}}"
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status code 204', () => pm.response.to.have.status(204));
+      pm.test('Body kosong', () => pm.expect(pm.response.text()).to.eql(''));
+    language: text/javascript
+order: 8000

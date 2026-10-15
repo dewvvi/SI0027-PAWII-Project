@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{base_url}}/mahasiswa"
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status code 200', () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+      pm.test('Response berupa array', () => pm.expect(body).to.be.an('array'));
+      pm.test('Berisi mahasiswa yang baru dibuat', () => {
+        pm.expect(body.map(m => m._id)).to.include(pm.environment.get('mahasiswaId'));
+      });
+    language: text/javascript
+order: 4000

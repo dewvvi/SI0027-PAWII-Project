@@ -1,0 +1,47 @@
+$kind: http-request
+url: "{{base_url}}/mahasiswa"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "nama": "Citra",
+      "nim": "{{nim}}",
+      "alamat": { "jalan": "Jl. Merdeka 1", "kota": "Bandung" },
+      "prodiId": "{{prodiId}}"
+    }
+scripts:
+  - type: beforeRequest
+    code: |-
+      // NIM harus unik, jadi dibuat baru setiap kali request dijalankan
+      pm.environment.set('nim', 'T' + Date.now());
+
+      // Jika prodiId belum ada (request dijalankan sendiri), buat prodi terlebih dahulu
+      if (!pm.environment.get('prodiId')) {
+        pm.sendRequest({
+          url: pm.environment.get('base_url') + '/prodi',
+          method: 'POST',
+          header: { 'Content-Type': 'application/json' },
+          body: { mode: 'raw', raw: JSON.stringify({ nama: 'Sistem Informasi' }) }
+        }, (err, res) => {
+          if (err) { console.error('Gagal membuat prodi:', err); return; }
+          pm.environment.set('prodiId', res.json()._id);
+        });
+      }
+    language: text/javascript
+  - type: afterResponse
+    code: |-
+      pm.test('Status code 201', () => pm.response.to.have.status(201));
+      const body = pm.response.json();
+      pm.test('Response memiliki _id', () => pm.expect(body).to.have.property('_id'));
+      pm.test('Data tersimpan dengan benar', () => {
+        pm.expect(body.nama).to.eql('Citra');
+        pm.expect(body.nim).to.eql(pm.environment.get('nim'));
+        pm.expect(body.alamat.kota).to.eql('Bandung');
+        pm.expect(body.prodiId).to.eql(pm.environment.get('prodiId'));
+      });
+      pm.environment.set('mahasiswaId', body._id);
+    language: text/javascript
+order: 1000
