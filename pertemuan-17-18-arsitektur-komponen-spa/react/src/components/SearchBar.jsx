@@ -8,6 +8,8 @@ function SearchBar(/* TODO: destructure { keyword, onSearch } dari props */) {
       type="text"
       placeholder="Cari nama mahasiswa..."
       // TODO: set value={keyword}
+      value={keyword}
+      onChange={onSearch(e.target.value)}
       // TODO: set onChange agar memanggil onSearch(e.target.value)
     />
   );
