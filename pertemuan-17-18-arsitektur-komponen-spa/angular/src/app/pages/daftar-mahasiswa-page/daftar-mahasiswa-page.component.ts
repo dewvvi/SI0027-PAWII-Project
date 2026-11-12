@@ -24,6 +24,11 @@ export class DaftarMahasiswaPageComponent {
   // TODO: buat getter mahasiswaTersaring() yang mengembalikan Mahasiswa[]
   // dengan memfilter DATA_MAHASISWA berdasarkan apakah
   // m.nama.toLowerCase() mengandung this.keyword.toLowerCase()
+  get mahasiswaTersaring(): Mahasiswa[]{
+    return DATA_MAHASISWA.filter((m) =>
+    m.nama.toLowerCase().includes(this.keyword.toLowerCase())
+    )
+  }
 
   onSearch(keyword: string) {
     this.keyword = keyword;
