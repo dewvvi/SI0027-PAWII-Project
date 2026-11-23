@@ -67,6 +67,13 @@
   border-radius: 8px;
 }
 
+.mahasiswa-form .select-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
 .mahasiswa-form .field {
   display: flex;
   flex-direction: column;
