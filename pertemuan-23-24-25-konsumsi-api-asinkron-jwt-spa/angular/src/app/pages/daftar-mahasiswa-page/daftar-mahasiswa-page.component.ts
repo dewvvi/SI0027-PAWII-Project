@@ -33,10 +33,11 @@ export class DaftarMahasiswaPageComponent implements OnInit {
   isLoggedIn = this.authService.isLoggedIn();
 
   ngOnInit() {
-    // TODO: panggil this.mahasiswaService.getAll().subscribe({
-    //   next: (res) => { this.mahasiswa = res.data; this.loading = false; },
-    //   error: () => { this.error = 'Gagal memuat data mahasiswa'; this.loading = false; },
-    // });
+    // TODO: panggil 
+    this.mahasiswaService.getAll().subscribe({
+      next: (res) => { this.mahasiswa = res.data; this.loading = false; },
+      error: () => { this.error = 'Gagal memuat data mahasiswa'; this.loading = false; },
+    });
   }
 
   get mahasiswaTersaring(): Mahasiswa[] {
@@ -50,10 +51,10 @@ export class DaftarMahasiswaPageComponent implements OnInit {
   }
 
   onTambah(mahasiswaBaru: { nama: string; nim: string }) {
-    // TODO: panggil this.mahasiswaService.create(mahasiswaBaru).subscribe({
-    //   next: (res) => { this.mahasiswa = [...this.mahasiswa, res]; },
-    //   error: () => { alert('Gagal menambah data (pastikan Anda sudah login)'); },
-    // });
+    this.mahasiswaService.create(mahasiswaBaru).subscribe({
+      next: (res) => { this.mahasiswa = [...this.mahasiswa, res]; },
+      error: () => { alert('Gagal menambah data (pastikan Anda sudah login)'); },
+    });
   }
 
   onLogout() {

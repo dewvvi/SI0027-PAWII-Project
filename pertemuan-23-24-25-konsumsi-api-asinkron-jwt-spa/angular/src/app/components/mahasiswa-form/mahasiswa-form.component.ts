@@ -16,14 +16,20 @@ export class MahasiswaFormComponent {
 
   form = new FormGroup({
     // TODO: tambahkan Validators.required pada field nama
-    nama: new FormControl(''),
+    nama: new FormControl('',[Validators.required]),
     // TODO: tambahkan Validators.required DAN Validators.pattern(/^\d{7}$/) pada field nim
-    nim: new FormControl(''),
+    nim: new FormControl('', [Validators.required, Validators.pattern(/^\d{7}$/)]),
   });
 
   onSubmit() {
     // TODO: jika this.form.invalid, panggil this.form.markAllAsTouched() lalu return
-    // TODO: panggil this.tambah.emit(this.form.value as { nama: string; nim: string })
-    // TODO: reset form dengan this.form.reset({ nama: '', nim: '' })
+    if (this.form.invalid){
+      this.form.markAllAsTouched();
+      return;
+    } 
+
+    this.tambah.emit(this.form.value as { nama: string; nim: string });
+    
+    this.form.reset({ nama: '', nim: '' });
   }
 }
